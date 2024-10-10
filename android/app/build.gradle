@@ -1,0 +1,61 @@
+plugins {
+    id "com.android.application"
+    // FlutterFire Configuration
+    id 'com.google.gms.google-services'
+    id "kotlin-android"
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace = "com.example.chatapp"
+    compileSdkVersion 34 // Manually setting compileSdkVersion
+
+    // Optional: Set your NDK version explicitly if necessary
+    // ndkVersion = "23.1.7779620"
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    defaultConfig {
+        applicationId = "com.example.chatapp"
+        minSdkVersion 23 // Set minimum SDK version to 23
+        targetSdkVersion 34 // Manually setting targetSdkVersion
+        versionCode 1 // Set version code for your app
+        versionName "1.0" // Set version name for your app
+        multiDexEnabled true
+    }
+
+    buildTypes {
+    release {
+        signingConfig signingConfigs.debug // Change this to your release config if applicable
+        minifyEnabled true 
+        shrinkResources false /// Enables code shrinking (ProGuard or R8)// Keeps resource shrinking enabled
+        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+}
+
+
+    // Define your Flutter source directory
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    // Add any other dependencies your project needs
+}
+
+// Apply the Google Services plugin for Firebase integration
+apply plugin: 'com.google.gms.google-services'
